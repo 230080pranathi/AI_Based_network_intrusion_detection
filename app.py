@@ -1,19 +1,26 @@
-pip install streamlit
-
 import streamlit as st
 import pandas as pd
 import joblib
+from sklearn.ensemble import RandomForestClassifier
 
-st.title("AI Network Intrusion Detection System")
+st.title("🚦 AI Network Intrusion Detection Dashboard")
 
-uploaded_file = st.file_uploader(
-    "Upload Network Traffic CSV", type="csv"
-)
+# Load Dataset
+df = pd.read_csv("KDDTrain+.txt")
 
-if uploaded_file:
-    data = pd.read_csv(uploaded_file)
-    predictions = best_rf.predict(data)
-    
-    attack_percentage = (predictions.sum() / len(predictions)) * 100
-    
-    st.write("Attack Percentage:", attack_percentage)
+st.subheader("Dataset Preview")
+st.write(df.head())
+
+# Train simple model (for demo)
+X = df.iloc[:, :-1]
+y = df.iloc[:, -1]
+
+model = RandomForestClassifier()
+model.fit(X, y)
+
+st.success("Model Trained Successfully!")
+
+# Predict sample
+if st.button("Run Sample Prediction"):
+    prediction = model.predict([X.iloc[0]])
+    st.write("Prediction:", prediction[0])
