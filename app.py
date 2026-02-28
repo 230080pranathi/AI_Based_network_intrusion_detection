@@ -6,7 +6,8 @@ from sklearn.ensemble import RandomForestClassifier
 st.title("🚦 AI Network Intrusion Detection Dashboard")
 
 # Load Dataset
-df = pd.read_csv("KDDTrain+.txt")
+df = pd.read_csv("data/" \
+"KDDTrain+.txt")
 
 st.subheader("Dataset Preview")
 st.write(df.head())
